@@ -1,6 +1,5 @@
 pragma solidity ^0.4.11;
 
-
 import "./ERC20.sol";
 import "./Ownable.sol";
 import "./SafeMath.sol";
@@ -112,7 +111,6 @@ contract ACO is ERC20, Ownable {
         Transfer(_from, _to, _amount);
         return true;
     }
-
 
     /**
      * Generates new ACO tokens during the ICO, after which the minting period 
