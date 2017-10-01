@@ -1,6 +1,5 @@
 pragma solidity ^0.4.11;
 
-
 import "./SafeMath.sol";
 import "./MultiOwnable.sol";
 import "./ACO.sol";
