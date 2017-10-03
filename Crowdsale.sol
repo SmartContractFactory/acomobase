@@ -1,5 +1,6 @@
 pragma solidity ^0.4.11;
 
+
 import "./SafeMath.sol";
 import "./MultiOwnable.sol";
 import "./ACO.sol";
@@ -134,10 +135,10 @@ contract Crowdsale is MultiOwnable {
      * @param _addr The address that will receive a refund. 
      * */
     function getRefund(address _addr) public {
-        require(!isSuccess() && hasEnded() && investments[_addr] > 0);
         if (_addr == 0x0) {
             _addr = msg.sender;
         }
+        require(!isSuccess() && hasEnded() && investments[_addr] > 0);
         uint256 toRefund = investments[_addr];
         investments[_addr] = 0;
         _addr.transfer(toRefund);
