@@ -1,5 +1,6 @@
 pragma solidity ^0.4.11;
 
+
 import "./ERC20.sol";
 import "./Ownable.sol";
 import "./SafeMath.sol";
@@ -81,9 +82,13 @@ contract ACO is ERC20, Ownable {
      * @param _amount The amount of tokens the spender is allowed to spend.
      * */
     function decreaseApproval(address _spender, uint256 _amount) public returns (bool) {
-        require(allowances[msg.sender][_spender].sub(_amount) >= 0);
-        allowances[msg.sender][_spender] = allowances[msg.sender][_spender].sub(_amount);
-        Approval(msg.sender, _spender, allowances[msg.sender][_spender]);
+        require(allowances[msg.sender][_spender] != 0);
+        if(_amount >= allowances[msg.sender][_spender]) {
+            allowances[msg.sender][_spender] = 0;
+        } else {
+            allowances[msg.sender][_spender] = allowances[msg.sender][_spender].sub(_amount);
+            Approval(msg.sender, _spender, allowances[msg.sender][_spender]);
+        }
     }
     
     /**
