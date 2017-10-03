@@ -32,15 +32,15 @@ contract Crowdsale is MultiOwnable {
 
     function Crowdsale() public {
         ACO_Token = new ACO();
-        minimumGoal = 35 ether;
-        cap = 65 ether;
+        minimumGoal = 1000 ether;
+        cap = 2000 ether;
         rate = 4000;
         startTime = now;
-        endTime = startTime.add(20 minutes);
-        bonusStages[0] = startTime.add(3 minutes);
+        endTime = startTime.add(10 minutes);
+        bonusStages[0] = startTime.add(2 minutes);
 
         for (uint i = 1; i < bonusStages.length; i++) {
-            bonusStages[i] = bonusStages[i - 1].add(3 minutes);
+            bonusStages[i] = bonusStages[i - 1].add(2 minutes);
         }
     }
 
@@ -59,15 +59,15 @@ contract Crowdsale is MultiOwnable {
      * @param _beneficiary The address the newly minted tokens will be sent to.
      * */
     function buyTokens(address _beneficiary) public payable {
-        require(_beneficiary != 0x0 && validPurchase());
-        if (this.balance.add(msg.value) >= minimumGoal && !success) {
+        require(_beneficiary != 0x0 && validPurchase() && this.balance.sub(msg.value) < cap);
+        if (this.balance >= minimumGoal && !success) {
             success = true;
             IcoSuccess();
         }
         uint256 weiAmount = msg.value;
-        if (this.balance.add(weiAmount) > cap) {
+        if (this.balance > cap) {
             CapReached();
-            uint256 toRefund = this.balance.add(weiAmount).sub(cap);
+            uint256 toRefund = this.balance.sub(cap);
             msg.sender.transfer(toRefund);
             weiAmount = weiAmount.sub(toRefund);
         }
