@@ -33,15 +33,15 @@ contract Crowdsale is MultiOwnable {
 
     function Crowdsale() public {
         ACO_Token = new ACO();
-        minimumGoal = 1000 ether;
-        cap = 2000 ether;
+        minimumGoal = 35000 ether;
+        cap = 315000 ether;
         rate = 4000;
         startTime = now;
-        endTime = startTime.add(10 minutes);
-        bonusStages[0] = startTime.add(2 minutes);
+        endTime = startTime.add(60 days);
+        bonusStages[0] = startTime.add(7 days);
 
         for (uint i = 1; i < bonusStages.length; i++) {
-            bonusStages[i] = bonusStages[i - 1].add(2 minutes);
+            bonusStages[i] = bonusStages[i - 1].add(7 days);
         }
     }
 
