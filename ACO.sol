@@ -18,6 +18,7 @@ contract ACO is ERC20, Ownable {
     event Mint(address indexed to, uint256 amount);
     event MintingFinished();
 
+    //added this comment
     function ACO() public {
         totalSupply = 0;
         decimals = 18;
